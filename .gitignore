@@ -1,0 +1,24 @@
+# --- System ---
+__pycache__/
+*.DS_Store
+Thumbs.db
+
+# --- Python ---
+venv/
+.venv/
+*.pyc
+
+# --- PROJECT SPECIFIC (CRITICAL) ---
+# Ignore the massive Datasets
+01_Data/
+
+# Ignore the heavy Models (Too big for GitHub Free)
+03_Models/
+
+# Ignore Training Checkpoints & Logs
+runs/
+checkpoint-*/
+trainer_state.json
+
+# --- IDE Settings ---
+.vscode/
