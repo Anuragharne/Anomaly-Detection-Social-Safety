@@ -11,12 +11,12 @@ from transformers import VideoMAEImageProcessor, VideoMAEForVideoClassification
 # CONFIGURATION
 # ==========================================
 # 1. TELEGRAM SETUP
-BOT_TOKEN = "8526966509:AAEDhKf6TxZxLKy9ugWHDod6aALYvxKWvXg" 
-CHAT_ID = "-5064868966"  # Your Group ID
+BOT_TOKEN = "your bot token" 
+CHAT_ID = "chat it"  # Your Group ID
 
 # 2. CAMERA SETUP (Static IP Recommended)
 # Ensure your phone is streaming at 1280x720 (HD) for best results
-IP_CAMERA_URL = "http://192.168.0.150:8080/video" 
+IP_CAMERA_URL = "http://your ip/video" 
 
 # 3. MODEL SETUP
 MODEL_PATH = r"03_Models\VideoMAE_Model"
