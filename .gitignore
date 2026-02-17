@@ -1,24 +1,13 @@
-# --- System ---
-__pycache__/
-*.DS_Store
-Thumbs.db
-
-# --- Python ---
-venv/
-.venv/
-*.pyc
-
-# --- PROJECT SPECIFIC (CRITICAL) ---
-# Ignore the massive Datasets
+# Ignore Data (It lives on Kaggle now)
 01_Data/
+*.zip
 
-# Ignore the heavy Models (Too big for GitHub Free)
+# Ignore Heavy Models (They live on Drive now)
 03_Models/
+*.pth
+*.bin
 
-# Ignore Training Checkpoints & Logs
-runs/
-checkpoint-*/
-trainer_state.json
-
-# --- IDE Settings ---
-.vscode/
+# Ignore Virtual Env
+venv/
+__pycache__/
+.DS_Store

@@ -11,12 +11,12 @@ from transformers import VideoMAEImageProcessor, VideoMAEForVideoClassification
 # CONFIGURATION
 # ==========================================
 # 1. TELEGRAM SETUP
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE" 
-CHAT_ID = ""  # Your Group ID
+BOT_TOKEN = "8526966509:AAEDhKf6TxZxLKy9ugWHDod6aALYvxKWvXg" 
+CHAT_ID = "-5064868966"  # Your Group ID
 
 # 2. CAMERA SETUP (Static IP Recommended)
 # Ensure your phone is streaming at 1280x720 (HD) for best results
-IP_CAMERA_URL = "http://your camera ip:8080/video" 
+IP_CAMERA_URL = "http://192.168.0.150:8080/video" 
 
 # 3. MODEL SETUP
 MODEL_PATH = r"03_Models\VideoMAE_Model"
@@ -42,7 +42,7 @@ class FreshFrame:
         self.thread = threading.Thread(target=self.update, args=())
         self.thread.daemon = True
         self.thread.start()
-        print(f"✅ Camera Thread Started: {self.url}")
+        print(f"Camera Thread Started: {self.url}")
 
     def update(self):
         while self.running:
@@ -56,7 +56,7 @@ class FreshFrame:
                 else:
                     self.ret = False
                     # If signal lost, try to reconnect
-                    print("⚠️ Signal Lost... Reconnecting...")
+                    print("Signal Lost... Reconnecting...")
                     self.cap.release()
                     time.sleep(2)
                     self.cap.open(self.url)
@@ -77,19 +77,19 @@ is_sending_alert = False
 def send_telegram_alert(video_path):
     global is_sending_alert
     try:
-        print(f"🚀 UPLOADING EVIDENCE: {video_path}...")
+        print(f"UPLOADING EVIDENCE: {video_path}...")
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
         
         with open(video_path, 'rb') as video_file:
             files = {'video': video_file}
             data = {
                 'chat_id': CHAT_ID, 
-                'caption': "⚠️ **VIOLENCE DETECTED**\n📍 Location: Main Hall (Live Feed)\n🚨 Status: Investigating"
+                'caption': "**VIOLENCE DETECTED**\n Location: Main Hall (Live Feed)\n Status: Investigating"
             }
             requests.post(url, files=files, data=data)
-        print("✅ ALERT DELIVERED to Police Control Room.")
+        print("ALERT DELIVERED to Police Control Room.")
     except Exception as e:
-        print(f"❌ FAILED TO SEND ALERT: {e}")
+        print(f" FAILED TO SEND ALERT: {e}")
     finally:
         is_sending_alert = False
 
@@ -110,13 +110,13 @@ def main():
     last_alert_time = 0
     
     # 1. Load Model
-    print("🧠 Loading AI Brain...")
+    print("Loading AI Brain...")
     processor = VideoMAEImageProcessor.from_pretrained(MODEL_PATH)
     model = VideoMAEForVideoClassification.from_pretrained(MODEL_PATH)
     model.eval()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
-    print(f"✅ Model Loaded on {device.upper()}")
+    print(f"Model Loaded on {device.upper()}")
 
     # 2. Start Camera
     cam = FreshFrame(IP_CAMERA_URL)
@@ -125,7 +125,7 @@ def main():
     time.sleep(1)
     ret, frame = cam.read()
     if not ret:
-        print("❌ CRITICAL ERROR: Could not connect to camera. Check IP.")
+        print("CRITICAL ERROR: Could not connect to camera. Check IP.")
         return
 
     height, width, _ = frame.shape
@@ -173,7 +173,7 @@ def main():
 
             # ALERT LOGIC
             if avg_score > CONFIDENCE_THRESHOLD:
-                label = f"⚠️ VIOLENCE! ({avg_score:.2f})"
+                label = f"VIOLENCE! ({avg_score:.2f})"
                 color = (0, 0, 255) # Red
                 
                 current_time = time.time()
