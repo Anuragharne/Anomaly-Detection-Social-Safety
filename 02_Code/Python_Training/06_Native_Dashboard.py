@@ -18,10 +18,10 @@ os.environ.pop("OPENCV_FFMPEG_CAPTURE_OPTIONS", None)
 # ==========================================
 # 1. CONFIGURATION
 # ==========================================
-BOT_TOKEN = "8526966509:AAEDhKf6TxZxLKy9ugWHDod6aALYvxKWvXg" 
-CHAT_ID = "-5064868966"  
+BOT_TOKEN = "" #your bot token
+CHAT_ID = "" #your chat id 
 
-IP_CAMERA_URL = "http://192.168.43.6:8080/video"
+IP_CAMERA_URL = "http://Ip address:8080/video" 
 
 MODEL_PATH = r"03_Models\VideoMAE_Model"
 CONFIDENCE_THRESHOLD = 0.80  
