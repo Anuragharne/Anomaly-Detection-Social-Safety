@@ -15,11 +15,11 @@ os.environ.pop("OPENCV_FFMPEG_CAPTURE_OPTIONS", None)
 # ==========================================
 # CONFIGURATION
 # ==========================================
-BOT_TOKEN = "8526966509:AAEDhKf6TxZxLKy9ugWHDod6aALYvxKWvXg" 
-CHAT_ID = "-5064868966"  
+BOT_TOKEN = "" #your bot token
+CHAT_ID = "" #your chat id 
 
 # UPDATE THIS WITH YOUR MOBILE HOTSPOT IP 
-IP_CAMERA_URL = "http://192.168.0.150:8080/video" 
+IP_CAMERA_URL = "http://Ip address:8080/video" 
 
 # VIDEOMAE (Violence)
 MODEL_PATH = r"03_Models\VideoMAE_Model"
