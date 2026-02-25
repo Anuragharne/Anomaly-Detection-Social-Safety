@@ -73,14 +73,14 @@ def send_telegram_alert(alert_type, extra_info=""):
     try:
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
         if alert_type == "VIOLENCE":
-            text = "🔴 **VIOLENCE DETECTED**\nLocation: Command Center Feed\nStatus: Immediate Action Required"
+            text = "**VIOLENCE DETECTED**\nLocation: Command Center Feed\nStatus: Immediate Action Required"
         else:
-            text = f"🟡 **CROWD CRUSH ALERT**\nLocation: Command Center Feed\nDetails: {extra_info}"
+            text = f"**CROWD CRUSH ALERT**\nLocation: Command Center Feed\nDetails: {extra_info}"
             
         requests.post(url, data={'chat_id': CHAT_ID, 'text': text})
-        print(f"✅ Alert Sent: {alert_type}")
+        print(f"Alert Sent: {alert_type}")
     except Exception as e:
-        print(f"❌ Alert Failed: {e}")
+        print(f"Alert Failed: {e}")
     finally:
         if alert_type == "VIOLENCE":
             is_sending_violence = False
@@ -142,7 +142,7 @@ def capture_true_window(window_title):
 # ==========================================
 # 5. LOAD AI MODELS
 # ==========================================
-print("🚀 Initializing AI Core (Hardware Accelerated)...")
+print("Initializing AI Core (Hardware Accelerated)...")
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 processor = VideoMAEImageProcessor.from_pretrained(MODEL_PATH)
@@ -152,7 +152,7 @@ videomae_model.to(device)
 
 yolo_model = YOLO("yolov8n.pt") 
 yolo_model.to(device) 
-print(f"✅ AI Core Online ({device.upper()})")
+print(f"AI Core Online ({device.upper()})")
 
 # ==========================================
 # 6. LIVE PIPELINE (DECOUPLED THREADS)
