@@ -1,26 +1,36 @@
-# Social Safety System: Real-Time Violence Detection (VideoMAE)
+# Social Safety Intelligence Command Center
 
 ## Overview
-An industrial-grade AI system capable of detecting violence in real-time video streams. 
-Unlike traditional "Skeleton-based" approaches, this project utilizes **Vision Transformers (VideoMAE)** to analyze raw pixel data, allowing it to detect subtle aggression, close-quarters combat, and crowd violence.
+An enterprise-grade, dual-AI surveillance pipeline designed to transition standard CCTV and IP camera networks from passive recording to active, context-aware threat detection. 
 
-## Key Features
-* **Architecture:** VideoMAE (Masked Autoencoder) fine-tuned on RWF-2000 & HMDB51.
-* **Temporal Awareness:** Uses strided sampling to detect both fast punches and slow grappling.
-* **Hard Negative Mining:** Specifically trained to distinguish "Hugging" and "Dancing" from actual violence.
-* **Real-Time Engine:** Custom inference pipeline with a 64-frame rolling buffer for live webcam analysis.
+Built by Anurag Harne and Anubhav Dubey, this system solves the "Semantic Blindspot" of traditional computer vision. Instead of relying purely on pixel velocity or rigid bounding-box rules, it utilizes a **Cascade Architecture**: a lightweight local AI tripwire triggers a cloud-based Vision-Language Model (VLM) to semantically verify human intent before dispatching alerts.
 
-## Tech Stack
-* **Core:** Python 3.10, PyTorch
-* **Model:** Hugging Face Transformers (`videomae-base`)
-* **Vision:** OpenCV, Decord
-* **Hardware:** Optimized for NVIDIA RTX 4050 (Gradient Accumulation enabled)
+## 🚀 Key Features
+* **Semantic Gatekeeper (VLM Cascade):** Uses **Gemini 2.5 Flash** to analyze 5-frame sequences of anomalous events, filtering out false positives (e.g., sparring in a gym, actors on a screen) by understanding scene context and body language.
+* **Temporal Violence Detection:** Employs **VideoMAE** (Masked Autoencoder) fine-tuned on custom datasets to detect the kinetic signatures of physical altercations in real-time.
+* **Spatial Crowd Analytics:** Uses **YOLOv8** combined with SciPy Euclidean distance clustering to detect high-density crowd formations and prevent crowd crush events.
+* **Zero-Latency UI:** CustomTkinter dashboard operating on decoupled GPU threads, ensuring 30 FPS video playback without blocking inference processes.
+* **Automated Dispatch:** Maintains a 60-frame rolling memory buffer. Upon verified threat detection, it compiles an `.mp4` and dispatches it instantly via the Telegram API to security personnel.
 
-## Project Structure
-* `02_Code/Python_Training/` - Training and Inference scripts.
-* `03_Train_VideoMAE.py` - The "Gen-3" training engine with temporal jitter.
-* `05_RealTime_VideoMAE.py` - The live demo application.
+## 🛠️ Tech Stack
+* **AI & Vision:** PyTorch, Ultralytics (YOLOv8), Hugging Face Transformers (`videomae-base`), OpenCV, SciPy
+* **Cloud API:** Google GenAI SDK (`gemini-2.5-flash`)
+* **UI & Concurrency:** CustomTkinter, Python `threading`
+* **Hardware:** Optimized for NVIDIA RTX 4050 (FP16 half-precision, GPU locking)
 
-## Accuracy
-* **Validation Accuracy:** 89.06% (Gen-2 Benchmark)
-* **Robustness:** Tested against camera shake (RLVS) and occlusion.
+## 📂 Project Structure
+* `02_Code/Python_Training/`
+  * `05_RealTime_Wireless.py` - IP Camera integration module.
+  * `06_Native_Dashboard.py` - Offline-first, hardware-accelerated command center.
+  * `07_VLM_Support.py` - **[LATEST]** Master pipeline featuring the Gemini 2.5 Semantic Gatekeeper and Telegram dispatch.
+* `03_Models/` - Local directory for VideoMAE Hugging Face weights.
+
+## ⚙️ Setup & Execution
+1. Install dependencies: `pip install torch torchvision torchaudio opencv-python customtkinter scipy ultralytics transformers google-genai`
+2. Insert your specific API credentials in `07_VLM_Support.py`:
+   * `BOT_TOKEN` (Telegram)
+   * `CHAT_ID` (Telegram)
+   * `GEMINI_API_KEY` (Google AI Studio)
+3. Run the Command Center:
+   ```bash
+   python 02_Code/Python_Training/07_VLM_Support.py
